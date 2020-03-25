@@ -19,22 +19,22 @@ GazeVisual GUI software for eye tracker data analysis and visualization
 ## This software runs with Python 2.7 and all the imported libraries should be installed.
 ## Please also download and the png image files (in GitHub folder)in the same folder as this code
 #######################################
-import Tkinter as tk  
-from Tkinter import *
+import tkinter as tk  
+from tkinter import *
 import time
 import numpy as np
 import matplotlib
 matplotlib.use("TkAgg")
 import matplotlib.pyplot as plt
 
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 from PIL import ImageTk, Image
-import ttk
-import Tkinter, Tkconstants, tkFileDialog
+import tkinter.ttk
+import tkinter, tkinter.constants, tkinter.filedialog
 import pandas as pd
 import csv
 import math
@@ -48,7 +48,7 @@ from scipy import stats
 #import pygame
 #import pytribe
 import threading
-import Queue
+import queue
 import warnings
 import matplotlib.cbook
 warnings.filterwarnings("ignore",category=matplotlib.cbook.mplDeprecation)
@@ -84,8 +84,8 @@ t.geometry('1010x700')
 ############ Change these paths to the path of the GazeVisual GUI tool folder within GazeVisual-Lib-master/Code_repository, where it is
 ############ saved on your computer. 
 
-initialdir= "C:/Users/Documents/Python Scripts/GazeVisual-Lib-master/Code repository/GazeVisual GUI tool"
-imgpath = "C:/Users/Documents/Python Scripts/GazeVisual-Lib-master/Code repository/GazeVisual GUI tool"
+initialdir= ""
+imgpath = ""
 
  
 class GUI():
@@ -113,7 +113,7 @@ class GUI():
             global diff_gz
             global us_id
             
-            gzm_file= tkFileDialog.askopenfilename(initialdir = initialdir,title = "Select file",filetypes = [("CSV files","*.csv")])
+            gzm_file= tkinter.filedialog.askopenfilename(initialdir = initialdir,title = "Select file",filetypes = [("CSV files","*.csv")])
 
             df= pd.read_csv(gzm_file)
             
@@ -289,7 +289,7 @@ class GUI():
             fs = Figure(figsize=(5.5,3.7), dpi=100)      
             fs.subplots_adjust(wspace = 0.4)
             self.canvas_s = FigureCanvasTkAgg(fs, page2)
-            self.canvas_s.show()
+            self.canvas_s.draw()
             
           
             #fs.add_subplot(111).plot(tim_rel,get_ang,'g')
@@ -342,7 +342,7 @@ class GUI():
             f2 = Figure(figsize=(5.5,3.7), dpi=100)      
             f2.subplots_adjust(wspace = 0.4)
             self.canvas2 = FigureCanvasTkAgg(f2, page2)
-            self.canvas2.show()
+            self.canvas2.draw()
             
 
             
@@ -370,7 +370,7 @@ class GUI():
             
             self.toolbar_frame2 = Frame(page2) 
             self.toolbar_frame2.grid(row=2,column=3,rowspan=7,columnspan=3,padx = 0,pady = 5,sticky= W) 
-            self.toolbar2 = NavigationToolbar2TkAgg( self.canvas2, self.toolbar_frame2 )
+            self.toolbar2 = NavigationToolbar2Tk( self.canvas2, self.toolbar_frame2 )
             self.canvas2._tkcanvas.grid(row=1,column=3,rowspan=5, columnspan=3, padx = 0,pady = 0, sticky=N)
          
             self.T21.delete(1.0, END) 
@@ -398,7 +398,7 @@ class GUI():
             global diff_gz_d1
             global dev1
             
-            gzm_file= tkFileDialog.askopenfilename(initialdir = initialdir,title = "Select file",filetypes = [("CSV files","*.csv")])
+            gzm_file= tkinter.filedialog.askopenfilename(initialdir = initialdir,title = "Select file",filetypes = [("CSV files","*.csv")])
 
             df= pd.read_csv(gzm_file)
             
@@ -490,7 +490,7 @@ class GUI():
             fs = Figure(figsize=(5.5,3.7), dpi=100)      
             fs.subplots_adjust(wspace = 0.4)
             self.canvas_s = FigureCanvasTkAgg(fs, page2)
-            self.canvas_s.show()
+            self.canvas_s.draw()
         
             fs.add_subplot(111).scatter(x_data,y_data, color='black')
             fs.add_subplot(111).plot(gtx_mm,gty_mm,'b')
@@ -531,7 +531,7 @@ class GUI():
             global diff_gz_d2
             global dev1
             
-            gzm_file= tkFileDialog.askopenfilename(initialdir = initialdir,title = "Select file",filetypes = [("CSV files","*.csv")])
+            gzm_file=tkinter.filedialog.askopenfilename(initialdir = initialdir,title = "Select file",filetypes = [("CSV files","*.csv")])
 #            if gzm_file is None: # askopenfile return `None` if dialog closed with "cancel".
 #                return
             df= pd.read_csv(gzm_file)
@@ -624,7 +624,7 @@ class GUI():
             fs = Figure(figsize=(5.5,3.7), dpi=100)      
             fs.subplots_adjust(wspace = 0.4)
             self.canvas_s = FigureCanvasTkAgg(fs, page2)
-            self.canvas_s.show()
+            self.canvas_s.draw()
         
             fs.add_subplot(111).scatter(x_data,y_data, color='black')
             fs.add_subplot(111).plot(gtx_mm,gty_mm,'b')
@@ -638,7 +638,7 @@ class GUI():
                         
             self.toolbar_frame2 = Frame(page2) 
             self.toolbar_frame2.grid(row=2,column=3,rowspan=7,columnspan=3,padx = 0,pady = 5,sticky= W) 
-            self.toolbar_s = NavigationToolbar2TkAgg( self.canvas_s, self.toolbar_frame2 )
+            self.toolbar_s = NavigationToolbar2Tk( self.canvas_s, self.toolbar_frame2 )
             self.canvas_s._tkcanvas.grid(row=1,column=3,rowspan=5, columnspan=3, padx = 0,pady = 0, sticky=N)
             
             
@@ -681,10 +681,10 @@ class GUI():
             the_table.auto_set_font_size(False)                      
             the_table.set_fontsize(10)
             the_table.scale(3,3)
-            self.canvas_s.show()
+            self.canvas_s.draw()
             self.toolbar_frame2 = Frame(page2) 
             self.toolbar_frame2.grid(row=2,column=3,rowspan=7,columnspan=3,padx = 0,pady = 5,sticky= W) 
-            self.toolbar_s = NavigationToolbar2TkAgg( self.canvas_s, self.toolbar_frame2 )
+            self.toolbar_s = NavigationToolbar2Tk( self.canvas_s, self.toolbar_frame2 )
             self.canvas_s._tkcanvas.grid(row=1,column=3,rowspan=5, columnspan=3, padx = 0,pady = 0, sticky=N)
             fs.add_subplot(111).set_title('Comparison of two datasets')
             fs.add_subplot(111).xaxis.set_tick_params(bottom=False, top=False, labelbottom=False)
@@ -700,7 +700,7 @@ class GUI():
             f2 = Figure(figsize=(5.5,3.7), dpi=100)      
             f2.subplots_adjust(wspace = 0.4)
             self.canvas2 = FigureCanvasTkAgg(f2, page2)
-            self.canvas2.show()
+            self.canvas2.draw()
             
 
 
@@ -729,7 +729,7 @@ class GUI():
             
             self.toolbar_frame2 = Frame(page2) 
             self.toolbar_frame2.grid(row=2,column=3,rowspan=7,columnspan=3,padx = 0,pady = 5,sticky= W) 
-            self.toolbar2 = NavigationToolbar2TkAgg( self.canvas2, self.toolbar_frame2 )
+            self.toolbar2 = NavigationToolbar2Tk( self.canvas2, self.toolbar_frame2 )
             self.canvas2._tkcanvas.grid(row=1,column=3,rowspan=5, columnspan=3, padx = 0,pady = 0, sticky=N)
            
             self.T21.delete(1.0, END) 
@@ -754,7 +754,7 @@ class GUI():
             f2 = Figure(figsize=(5.5,3.7), dpi=100)      
             f2.subplots_adjust(wspace = 0.4)
             self.canvas2 = FigureCanvasTkAgg(f2, page2)
-            self.canvas2.show()
+            self.canvas2.draw()
             
 
             
@@ -782,7 +782,7 @@ class GUI():
             
             self.toolbar_frame2 = Frame(page2) 
             self.toolbar_frame2.grid(row=2,column=3,rowspan=7,columnspan=3,padx = 0,pady = 5,sticky= W) 
-            self.toolbar2 = NavigationToolbar2TkAgg( self.canvas2, self.toolbar_frame2 )
+            self.toolbar2 = NavigationToolbar2Tk( self.canvas2, self.toolbar_frame2 )
             self.canvas2._tkcanvas.grid(row=1,column=3,rowspan=5, columnspan=3, padx = 0,pady = 0, sticky=N)
 
             self.T21.delete(1.0, END) 
@@ -800,7 +800,7 @@ class GUI():
             global y_v
            
             
-            gzm_file= tkFileDialog.askopenfilename(initialdir = initialdir ,title = "Select file",filetypes = [("CSV files","*.csv")])
+            gzm_file=tkinter.filedialog.askopenfilename(initialdir = initialdir ,title = "Select file",filetypes = [("CSV files","*.csv")])
 
             df= pd.read_csv(gzm_file)
             
@@ -912,7 +912,7 @@ class GUI():
                         
             self.toolbar_frame3 = Frame(page3) 
             self.toolbar_frame3.grid(row=2,column=3,rowspan=6,columnspan=3,padx = 0,pady = 5,sticky= W) 
-            self.toolbar_s = NavigationToolbar2TkAgg( self.canvas_s, self.toolbar_frame3 )
+            self.toolbar_s = NavigationToolbar2Tk( self.canvas_s, self.toolbar_frame3 )
             self.canvas_s._tkcanvas.grid(row=1,column=3,rowspan=5, columnspan=3, padx = 0,pady = 0, sticky=N)
 
 ################################# datavis1################################################
@@ -924,7 +924,7 @@ class GUI():
             global y_v1
             global get_ang_v1
             
-            gzm_file= tkFileDialog.askopenfilename(initialdir = initialdir ,title = "Select file",filetypes = [("CSV files","*.csv")])
+            gzm_file=tkinter.filedialog.askopenfilename(initialdir = initialdir ,title = "Select file",filetypes = [("CSV files","*.csv")])
 
             df= pd.read_csv(gzm_file)
             
@@ -1035,7 +1035,7 @@ class GUI():
                         
             self.toolbar_frame3 = Frame(page3) 
             self.toolbar_frame3.grid(row=2,column=3,rowspan=6,columnspan=3,padx = 0,pady = 5,sticky= W) 
-            self.toolbar_s = NavigationToolbar2TkAgg( self.canvas_s, self.toolbar_frame3 )
+            self.toolbar_s = NavigationToolbar2Tk( self.canvas_s, self.toolbar_frame3 )
             self.canvas_s._tkcanvas.grid(row=1,column=3,rowspan=5, columnspan=3, padx = 0,pady = 0, sticky=N)        
         
             
@@ -1047,7 +1047,7 @@ class GUI():
             global y_v2
             global get_ang_v2
             
-            gzm_file= tkFileDialog.askopenfilename(initialdir = initialdir ,title = "Select file",filetypes = [("CSV files","*.csv")])
+            gzm_file= tkinter.filedialog.askopenfilename(initialdir = initialdir ,title = "Select file",filetypes = [("CSV files","*.csv")])
 
             df= pd.read_csv(gzm_file)
             
@@ -1171,7 +1171,7 @@ class GUI():
             
             plot_bg= self.T32.get("1.0","end-1c")
             plot_cl= self.T31.get("1.0","end-1c")
-            print plot_cl,plot_bg
+            print(plot_cl,plot_bg)
             fs = Figure(figsize=(5.5,3.7), dpi=100)
             self.canvas = FigureCanvasTkAgg(fs, page3)
             self.canvas.show()
@@ -1316,14 +1316,14 @@ class GUI():
                 std_1= np.std(lst)
                 mean_err.append(avg_1)  
                 aoi_std.append(std_1)
-            print len(mean_err)
+            print(len(mean_err))
            
             aoi_ind= [90*n for n in range(0,28)]
      
            
             aoi_x= [gt_xv[m5] for m5 in aoi_ind]      
             aoi_y= [gt_yv[m6] for m6 in aoi_ind]  
-            print aoi_x[9], aoi_y[9]
+            print(aoi_x[9], aoi_y[9])
             aoi_x1= [aoi_x[0], aoi_x[1], aoi_x[2],aoi_x[5],aoi_x[6],
                      aoi_x[9], aoi_x[10],aoi_x[11], aoi_x[14], aoi_x[15], 
                         aoi_x[19], aoi_x[20], aoi_x[21],aoi_x[24],aoi_x[25]]
@@ -1470,12 +1470,12 @@ class GUI():
             
             self.toolbar_frame2 = Frame(page3) 
             self.toolbar_frame2.grid(row=2,column=3,rowspan=6,columnspan=3,padx = 0,pady = 5,sticky= W) 
-            self.toolbar2 = NavigationToolbar2TkAgg( self.canvas2, self.toolbar_frame2 )
+            self.toolbar2 = NavigationToolbar2Tk( self.canvas2, self.toolbar_frame2 )
             self.canvas2._tkcanvas.grid(row=1,column=3,rowspan=5, columnspan=3, padx = 0,pady = 0, sticky=N)
             
 
         def file_save2():
-            save_file1 = tkFileDialog.asksaveasfile(mode='w', defaultextension=".txt")
+            save_file1 = tkinter.filedialog.asksaveasfile(mode='w', defaultextension=".txt")
             if save_file1 is None: 
                 return
             text2save = str(self.T21.get(1.0, END)) 
@@ -1487,7 +1487,7 @@ class GUI():
              self.T21.insert(END, quote21)
              f1 = Figure(figsize=(5.5,3.7), dpi=100)
              self.canvas1 = FigureCanvasTkAgg(f1, page2)
-             self.canvas1.show()
+             self.canvas1.draw()
              t1 = np.arange(0, 3, .01)
              f1.add_subplot(111).plot(t1, 2 * np.sin(2 * np.pi * t1))
 
@@ -2032,7 +2032,7 @@ class GUI():
                 
 ####################################### LiveTracking main function #######################################        
         def livetrack1():
-            print "Use this if you want to collect data from an eye tracker"
+            print("Use this if you want to collect data from an eye tracker")
 #            bgco= self.T45.get("1.0","end-1c")
 #            
 #            window_w =self.T42.get("1.0","end-1c")
@@ -2117,22 +2117,22 @@ class GUI():
             
 #######################################################################    
 
-        nb = ttk.Notebook(t)
+        nb = tkinter.ttk.Notebook(t)
         nb.grid(row=1, column=0, columnspan=50, rowspan=49, sticky='NESW')
 
-        page1 = ttk.Frame(nb)
+        page1 = tkinter.ttk.Frame(nb)
         nb.add(page1, text='Home Page')
  
-        page2 = ttk.Frame(nb)
+        page2 = tkinter.ttk.Frame(nb)
         nb.add(page2, text='Data Analysis')
     
-        page3 = ttk.Frame(nb)
+        page3 = tkinter.ttk.Frame(nb)
         nb.add(page3, text='Visualizations')
         
-        page4 = ttk.Frame(nb)
+        page4 = tkinter.ttk.Frame(nb)
         nb.add(page4, text='Test UI & Track')
     
-        page5 = ttk.Frame(nb)
+        page5 = tkinter.ttk.Frame(nb)
         nb.add(page5, text='Help')
     ############### main page ###################
         self.tex1 = Label(page1,  text='GazeVisual: A Graphical Software Tool \nfor Performance Evaluation of Eye Trackers', font = 'Lucida 18 bold').grid(row=0,column=1, columnspan=2, padx = 20,pady = 5,sticky = S)#ack(fill=X, padx=10,pady=10)
@@ -2243,13 +2243,13 @@ class GUI():
      
         f1 = Figure(figsize=(5.5,3.7), dpi=100)
         self.canvas1 = FigureCanvasTkAgg(f1, page2)
-        self.canvas1.show()
+        self.canvas1.draw()
         t1 = np.arange(0, 3, .01)
         f1.add_subplot(111).plot(t1, 2 * np.sin(2 * np.pi * t1))
    
         self.toolbar_frame1 = Frame(page2) 
         self.toolbar_frame1.grid(row=2,column=3,rowspan=7,columnspan=3,padx = 0,pady = 5,sticky= W) 
-        self.toolbar1 = NavigationToolbar2TkAgg( self.canvas1, self.toolbar_frame1 )
+        self.toolbar1 = NavigationToolbar2Tk( self.canvas1, self.toolbar_frame1 )
 
         self.canvas1._tkcanvas.grid(row=1,column=3,rowspan=5, columnspan=3, padx = 0,pady = 0, sticky=N)
 
@@ -2331,13 +2331,13 @@ class GUI():
     ################## canvas on page 3
         f = Figure(figsize=(5.5,3.7), dpi=100)
         self.canvas = FigureCanvasTkAgg(f, page3)
-        self.canvas.show()
+        self.canvas.draw()
         t3 = np.arange(0, 3, .01)
         f.add_subplot(111).plot(t3, 2 * np.sin(2 * np.pi * t3))
    
         self.toolbar_frame = Frame(page3) 
         self.toolbar_frame.grid(row=2,column=3,rowspan=6,columnspan=3,padx = 0,pady = 5,sticky= W) 
-        self.toolbar = NavigationToolbar2TkAgg( self.canvas, self.toolbar_frame )
+        self.toolbar = NavigationToolbar2Tk( self.canvas, self.toolbar_frame )
 
         self.canvas._tkcanvas.grid(row=1,column=3,rowspan=5, columnspan=3, padx = 0,pady = 0, sticky=N)
 ###################################################################################################
